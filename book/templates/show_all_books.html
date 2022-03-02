@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ALL Data</title>
+        <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+    </head>
+    <body>
+        <table border = "3" style="width:50%">
+            <tr>
+                <th>Book_Id</th>
+                <th>Book_name</th>
+                <th>Book_price</th>
+                <th>Book_qty</th>
+                <th>Book_available</th>
+                <th>Action</th>
+                <th>change status</th>
+            </tr>
+            {% for book in Books %}
+            <tr>
+               
+                <td>{{book.id}}</td>
+                <td>{{book.name}}</td>
+                <td>{{book.price}}</td>
+                <td>{{book.qty}}</td>
+                <td>{{book.is_available}}</td>
+
+                <td>
+                    <!-- !-- to make active buttons give hyperlink--> 
+                    <!-- <a href = "{% url 'edit' book.id %}" class ="btn btn-primary">Edit</a>&nbsp; &nbsp;   -->
+                    <a href="{% url 'edit' book.id %}" class="btn btn-primary">Edit</a>&nbsp;&nbsp <br>
+
+                    <!-- <a href = "{% url 'delete' book.id %}" method="post">DELETE</a>     -->
+                    <form action = "{% url 'delete' book.id %}" method = "POST">
+                        {% csrf_token %}
+                        <input type = "submit" value = 'delete'>
+                    </form>
+                </td>
+                    <td>
+                    <form action = "{% url 'soft_delete' book.id %}" method = "POST">
+                        {% csrf_token %}
+                        <input type = "submit" value = 'soft_delete'>
+                    </form>
+
+                </td>
+          </tr>
+            {% endfor %}
+            
+        </table>
+        
+        <a href="{% url 'homepage' %}">home</a>
+        <!-- <a href="{% url 'soft_delete_all' %}">soft_delete_all</a> -->
+        <form action="{% url 'soft_delete_all' %}" method = 'POST'">
+            {% csrf_token %}
+            <input type = "submit" value = 'soft_delete_all'>
+        </form>
+        <form action = "{% url 'delete_all_books' %}" method = "POST">
+            {% csrf_token %}
+            <input type = "submit" value = 'delete_all_books'>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WELCOME TO DJANGO</title>
+    </head>
+<body>
+    
+
+<h1>Book form</h1>
+
+<form action="{% url 'homepage' %}" method="post">
+    {% csrf_token %}
+    {% if single_book %}
+        Book_Id:-<input type = "number" name = "bid" value="{{single_book.id}}"readonly><br><br>
+    {% endif %}
+    Book_name:- <input type="text" name="bname" value ="{{single_book.name}}"placeholder = "enter  name"><br><br>
+    Book_price:- <input type = "number" name="bprice" value = "{{single_book.price}}"placeholder = "enter  price"><br><br>
+    Book_qty:- <input type = "number" name="bqty" value = "{{single_book.qty}}"placeholder="enter quantity"><br><br>
+    Book_available:- <input type = "number" name="available" value = "{{single_book.is_active}}"placeholder="Is book available?"><br> 
+    <input type="submit" value="Submit"><br><br>
+</form>
+<!-- <a href="#">Show Books</a> -->
+<!-- <a href="https://www.w3schools.com/html/html_editors.asp">This is a link</a> -->
+<!-- <img src = "bmw.png"width="500"height="600"> -->
+<!-- <img src = "/media/bmw.png" width="500" height="600" /> ### keep media folder in outside Library -->
+<a href="{% url 'show_all_books' %}">Show Books</a>
+<a href="{%url 'soft_delete_all' %}">All Soft Delete</a>
+<!-- <a href="{% url 'delete_all_books' %}" class = "btn btn-danger" >Delete All Books</a> -->
+
+</body>
+</html>
